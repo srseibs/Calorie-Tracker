@@ -4,16 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.example.core.navigation.Route
 import com.example.core.util.UiEvent
 import com.example.core_ui.LocalSpacing
-import com.example.onboarding_presentation.welcome.components.ActionButton
+import com.example.onboarding_presentation.components.ActionButton
 import com.plcoding.core.R
 
 
