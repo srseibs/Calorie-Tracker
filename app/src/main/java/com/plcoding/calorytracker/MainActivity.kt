@@ -19,6 +19,7 @@ import com.example.onboarding_presentation.age.AgeScreen
 import com.example.onboarding_presentation.gender.GenderScreen
 import com.example.onboarding_presentation.goal.GoalScreen
 import com.example.onboarding_presentation.height.HeightScreen
+import com.example.onboarding_presentation.nutrient_goal.NutrientGoalScreen
 import com.example.onboarding_presentation.weight.WeightScreen
 import com.example.onboarding_presentation.welcome.WelcomeScreen
 import com.plcoding.calorytracker.navigation.navigate
@@ -77,15 +78,18 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Route.NUTRIENT_GOAL) {
-
+                            NutrientGoalScreen(
+                                scaffoldState = scaffoldState,
+                                onNavigate = navController::navigate
+                            )
                         }
 
 
                         composable(Route.TRACKER_OVERVIEW) {
-
+                            Text("Tracker overview screen")
                         }
                         composable(Route.SEARCH) {
-
+                            Text("Search screen")
                         }
                     }
                 }
