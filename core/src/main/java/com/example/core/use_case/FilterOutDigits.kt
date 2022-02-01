@@ -1,4 +1,4 @@
-package com.example.core.data
+package com.example.core.use_case
 
 class FilterOutDigits {
     operator fun invoke(text: String): String {
