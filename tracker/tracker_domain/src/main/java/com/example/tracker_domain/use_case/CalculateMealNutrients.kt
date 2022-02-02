@@ -1,5 +1,8 @@
 package com.example.tracker_domain.use_case
 
+import com.example.core.domain.DietConstants.CAL_PER_CARB_G
+import com.example.core.domain.DietConstants.CAL_PER_FAT_G
+import com.example.core.domain.DietConstants.CAL_PER_PROTEIN_G
 import com.example.core.domain.model.ActivityLevel
 import com.example.core.domain.model.Gender
 import com.example.core.domain.model.GoalType
@@ -34,9 +37,7 @@ class CalculateMealNutrients(
         val userInfo = preferences.loadUserInfo()
         val calorieGoal = dailyCaloryRequirement(userInfo)
 
-        val CAL_PER_CARB_G = 4f
-        val CAL_PER_FAT_G = 4f
-        val CAL_PER_PROTEIN_G = 8f
+
         val carbsGoal = (calorieGoal * userInfo.carbRatio / CAL_PER_CARB_G).roundToInt()
         val proteinGoal = (calorieGoal * userInfo.proteinRatio / CAL_PER_PROTEIN_G).roundToInt()
         val fatGoal = (calorieGoal * userInfo.fatRatio / CAL_PER_FAT_G).roundToInt()
