@@ -8,11 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core.util.UiEvent
 import com.example.core_ui.LocalSpacing
 import com.example.tracker_presentation.tracker_overview.components.*
 import com.plcoding.tracker_presentation.R
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.LaunchedEffect
+import com.example.core.util.UiEvent
 
 @Composable
 fun TrackerOverviewScreen(
@@ -22,11 +23,21 @@ fun TrackerOverviewScreen(
     val spacing = LocalSpacing.current
     val state = viewModel.state
     val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+
+    }
 
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = spacing.spaceMedium)
+
     ) {
         item {
             NutrientsHeader(state = state)
