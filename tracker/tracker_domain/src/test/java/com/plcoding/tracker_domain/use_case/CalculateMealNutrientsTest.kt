@@ -85,6 +85,7 @@ class CalculateMealNutrientsTest {
                 date = LocalDate.now(),
                 calories = Random.nextInt(2000)
             )
+
         }
 
         val result = calculateMealNutrients(trackedFoods)
