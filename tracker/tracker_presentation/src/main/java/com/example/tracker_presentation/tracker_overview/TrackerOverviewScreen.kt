@@ -13,25 +13,18 @@ import com.example.tracker_presentation.tracker_overview.components.*
 import com.plcoding.tracker_presentation.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.LaunchedEffect
+import coil.annotation.ExperimentalCoilApi
 import com.example.core.util.UiEvent
 
+@ExperimentalCoilApi
 @Composable
 fun TrackerOverviewScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNavigateToSearch: (meal: String, dayOfMonth: Int, month: Int, year: Int) -> Unit,
     viewModel: TrackerOverviewViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
     val context = LocalContext.current
-    LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
-                else -> Unit
-            }
-        }
-
-    }
 
     LazyColumn(
         modifier = Modifier
@@ -88,7 +81,12 @@ fun TrackerOverviewScreen(
                                 meal.name.asString(context)
                             ),
                             onClick = {
-                                viewModel.onEvent(TrackerOverviewEvent.OnAddFoodClicked(meal))
+                                onNavigateToSearch(
+                                    meal.name.asString(context),
+                                    state.date.dayOfMonth,
+                                    state.date.monthValue,
+                                    state.date.year
+                                )
                             },
                             modifier = Modifier.fillMaxWidth()
                         )

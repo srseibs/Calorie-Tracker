@@ -1,5 +1,6 @@
 package com.example.tracker_data.repository
 
+import com.example.core.domain.DietConstants
 import com.example.tracker_data.local.TrackerDao
 import com.example.tracker_data.mapper.toTrackableFood
 import com.example.tracker_data.mapper.toTrackedFood
@@ -29,7 +30,17 @@ class TrackerRepositoryImpl(
                 pageSize = pageSize
             )
             Result.success(
-                searchDto.products.mapNotNull { it.toTrackableFood() }
+                searchDto.products
+                    .filter {
+                        val calculatedCalories =
+                            it.nutriments.carbohydrates100g * DietConstants.CAL_PER_CARB_G +
+                                    it.nutriments.fat100g * DietConstants.CAL_PER_FAT_G +
+                                    it.nutriments.proteins100g * DietConstants.CAL_PER_PROTEIN_G
+                        val lowerBound = calculatedCalories * 0.99f
+                        val upperBound = calculatedCalories * 1.02f
+                        it.nutriments.energyKcal100g in (lowerBound..upperBound)
+                    }
+                    .map { it.toTrackableFood() }
             )
         } catch (e: Exception) {
             e.printStackTrace()
